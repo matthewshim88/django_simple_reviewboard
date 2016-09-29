@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load staticfiles %}
+    <link rel='stylesheet' href="{%static 'bookRev/css/bootstrap.min.css' %}" media="screen" title="bootstrap" charset="utf-8">
+  </head>
+  <body>
+    <div class="container">
+     <h2>Add a New Book Title and a Review</h2>
+     <div id='bookBox'>
+       {% for message in messages %}
+          <li{% if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+       {% endfor %}
+       <form action="{% url 'books:newBook' %}" method='POST'>
+           {% csrf_token %}
+           <p>Book Title: <input type="text" name='title' class='form-control col-md-6'></p>
+           <p>Select existing Author:
+             <select name='author' type='text'>
+               <option> </option>
+               {% for x in authors %}
+                <option>{{ x.name }}</option>
+               {% endfor %}
+             </select>
+           </p>
+           <p>Author: <input type="text" name='author_name' class='form-control col-md-6' ></p>
+           <p>Review: <textarea rows="4" cols="50" type="text" name='review' class='form-control col-md-6'></textarea></p>
+           <p>Rating:
+             <select name='rating'>
+               <option value="1"> 1 </option>
+               <option value="2"> 2 </option>
+               <option value="3"> 3 </option>
+               <option value="4"> 4 </option>
+               <option value="5"> 5 </option>
+             </select>
+            </p>
+           <input type='submit' value='Create' class="btn btn-default">
+       </form>
+       <a href="{% url 'books:index' %}"class="btn btn-default">Home</a>
+       <a href="{%url 'books:logOut'%}" class="btn btn-default">Log Out</a>
+     </div>
+   </div>
+  </body>
+</html>

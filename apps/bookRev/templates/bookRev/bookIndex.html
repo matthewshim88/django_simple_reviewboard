@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load staticfiles %}
+     <link rel='stylesheet' href="{%static 'bookRev/css/bootstrap.min.css' %}" media="screen" title="bootstrap" charset="utf-8">
+  </head>
+  <body>
+    <div class='mainBox'>
+      <div class='header container'>
+        <h2>Welcome {{ this_user.first_name }}</h2>
+        <a href="{% url 'books:addForm' %}" class='btn btn-default'>Add Book and Review</a>
+        <a href="{%url 'books:logOut'%}" class="btn btn-default">Log Out</a>
+      </div>
+      <div class='container'>
+        <h3>Other Books with Reviews: </h3>
+          <div class='booksBox'>
+             {% for book in all_books %}
+               <a href="{% url 'books:show' id=book.id%}" class='newLine'>{{ book.title }}</a>
+             {% endfor %}
+          </div>
+      </div>
+      <div class='container'>
+      {% for message in messages %}
+         <h4 class='alert alert-{{ message.tags }}'>{{ message }}</h4>
+       {% endfor %}
+       <h3>Recent Book Reviews: </h3>
+       <div id='recentReviews' class="container">
+         {% for review in recent_reviews %}
+            <h3><a href="{%url 'books:show' id=review.book.id%}">{{review.book.title}}</a></h3>
+            <p> Rating: {{review.rating}}</p>
+            <a href="{% url 'books:user' id=review.user.id %}">{{review.user.first_name}}</a>
+            <p>says: {{review.review}}</p>
+            <p> Posted on {{review.created_at}}</p>
+            <hr>
+         {% endfor %}
+       </div>
+     </div>
+   </div>
+  </body>
+</html>
