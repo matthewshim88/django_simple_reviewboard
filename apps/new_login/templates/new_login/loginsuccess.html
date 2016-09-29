@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load staticfiles %}
+    <link rel='stylesheet' href="{%static 'restful_route/css/bootstrap.min.css' %}" media="screen" title="bootstrap" charset="utf-8">
+  </head>
+  <body>
+    <h2>Success! Welcome {{ this_user.first_name }}</h2>
+    {% if messages %}
+      <ul class='messages'>
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{message.tags}}"{%endif%}>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    <table>
+      <thead>
+         <tr>
+           <th>First Name</th>
+           <th>Last Name</th>
+           <th>Alias: </th>
+           <th>Email</th>
+           <th>Password</th>
+           <th>Actions</th>
+         </tr>
+       </thead>
+        {% for i in users %}
+            <tr>
+              <td>{{ i.first_name }}</td>
+              <td>{{ i.last_name }}</td>
+              <td>{{ i.alias }}</td>
+              <td>{{ i.email }}</td>
+              <td>{{ i.password }}</td>
+              <td><a href="/selectAccount/{{ i.id }}/delete">Remove Account</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+  </body>
+</html>

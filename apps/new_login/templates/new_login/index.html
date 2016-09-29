@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <link rel='stylesheet' href="{%static 'restful_route/css/bootstrap.min.css' %}" media="screen" title="bootstrap" charset="utf-8">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id='loginBlock'>
+      <h2>Login</h2>
+      <form action='/login' method='POST'>
+        {% csrf_token %}
+        <label for=''>Email: <input type ='text' name='email'></label>
+        <label for=''>Password: <input type='text' name='password'></label>
+        <input type='submit' value='Login'>
+      </form>
+    </div>
+    {% if messages %}
+    <ul class='messages'>
+        {% for message in messages%}
+        <li{% if message.tags%} class="{{message.tags}}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div id='regBlock'>
+      <h2>Registration</h2>
+      <form action='/register' method='POST'>
+        {% csrf_token %}
+        <p>First Name: <input type ='text' name='fname'></p>
+        <p>Last Name: <input type ='text' name='lname'></p>
+        <p>Alias: <input type='text' name='alias'></p>
+        <p>Email: <input type ='text' name='email'></p>
+        <p>Password: <input type ='text' name='password'></p>
+        <p>Confirm Password: <input type ='text' name='confirmpass'></p>
+        <input type='submit' value='Register'>
+      </form>
+    </div>
+  </body>
+</html>
